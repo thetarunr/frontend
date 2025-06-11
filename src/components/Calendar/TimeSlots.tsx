@@ -9,29 +9,26 @@ interface TimeSlotsProps {
 }
 
 const TimeSlots: React.FC<TimeSlotsProps> = ({ view }) => {
-  const { selectedDate, bookings ,setSelectedTime} = useBookingContext();
+  const { selectedDate, bookings, setSelectedTime } = useBookingContext();
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
-  
-  // Generate time slots from 6 AM to 9 PM (last booking ends at 10 PM)
+
+  // Generate time slots from 8 AM to 11 PM
   const timeSlots = [];
-  for (let hour = 6; hour <= 21; hour++) {
+  for (let hour = 8; hour <= 23; hour++) {
     const formattedHour = hour % 12 === 0 ? 12 : hour % 12;
     const period = hour < 12 ? 'AM' : 'PM';
     timeSlots.push(`${formattedHour}:00 ${period}`);
   }
-  
- 
-  
 
   const renderDayView = () => {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
         {timeSlots.map((slot, index) => {
-          const hour = (index + 6); // Starting from 6 AM
+          const hour = index + 8; // Starting from 8 AM
           const slotKey = `${selectedDate.toDateString()}-${hour}`;
           const isBooked = bookings.includes(slotKey);
           const isPeak = isPeakHour(hour);
-          
+
           return (
             <div
               key={slot}
@@ -49,7 +46,6 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({ view }) => {
                   setSelectedTime(timeString);
                 }
               }}
-              
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
@@ -60,7 +56,7 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({ view }) => {
                   {isPeak ? '₹799' : '₹699'}
                 </span>
               </div>
-              
+
               {isBooked && (
                 <div className="absolute inset-0 flex items-center justify-center rounded-lg bg-gray-800 bg-opacity-70">
                   <span className="text-white font-medium text-sm px-2 py-1 rounded-full bg-red-500">
@@ -74,10 +70,10 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({ view }) => {
       </div>
     );
   };
-  
+
   const renderWeekView = () => {
     const nextDays = getNextNDays(selectedDate, 7);
-    
+
     return (
       <div className="overflow-x-auto">
         <table className="min-w-full border-collapse">
@@ -87,7 +83,10 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({ view }) => {
                 Time
               </th>
               {nextDays.map((day) => (
-                <th key={day.toDateString()} className="py-2 px-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th
+                  key={day.toDateString()}
+                  className="py-2 px-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                >
                   {getFormattedDate(day, true)}
                 </th>
               ))}
@@ -95,9 +94,9 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({ view }) => {
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {timeSlots.map((slot, index) => {
-              const hour = (index + 6); // Starting from 6 AM
+              const hour = index + 8; // Starting from 8 AM
               const isPeak = isPeakHour(hour);
-              
+
               return (
                 <tr key={slot} className="hover:bg-gray-50">
                   <td className="py-3 px-3 whitespace-nowrap">
@@ -109,11 +108,11 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({ view }) => {
                       </span>
                     </div>
                   </td>
-                  
+
                   {nextDays.map((day) => {
                     const slotKey = `${day.toDateString()}-${hour}`;
                     const isBooked = bookings.includes(slotKey);
-                    
+
                     return (
                       <td key={slotKey} className="py-2 px-3 whitespace-nowrap">
                         <button
@@ -130,7 +129,6 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({ view }) => {
                             const timeString = `${hour.toString().padStart(2, '0')}:00`;
                             setSelectedTime(timeString);
                           }}
-                          
                         >
                           {isBooked ? 'Booked' : 'Available'}
                         </button>
@@ -145,12 +143,8 @@ const TimeSlots: React.FC<TimeSlotsProps> = ({ view }) => {
       </div>
     );
   };
-  
-  return (
-    <div>
-      {view === 'day' ? renderDayView() : renderWeekView()}
-    </div>
-  );
+
+  return <div>{view === 'day' ? renderDayView() : renderWeekView()}</div>;
 };
 
 export default TimeSlots;

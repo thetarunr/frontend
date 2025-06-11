@@ -146,8 +146,8 @@ const BookingPage: React.FC = () => {
                 <span className="font-medium">₹799/hour</span>
               </div>
               <div className="text-xs text-gray-500 mt-2">
-                <p>Day: 6:00 AM to 6:00 PM</p>
-                <p>Night: 6:00 PM to 6:00 AM</p>
+                <p>Day: 8:00 AM to 5:00 PM</p>
+                <p>Night: 6:00 PM to 11:00 AM</p>
               </div>
             </div>
           </div>

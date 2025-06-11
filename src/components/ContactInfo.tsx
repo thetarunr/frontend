@@ -15,7 +15,8 @@ const ContactInfo: React.FC = () => {
             href="tel:+919940767771" 
             className="text-xl font-bold text-green-600 hover:text-green-700 transition-colors flex items-center"
           >
-            +91 99407 67771
+            +91 7200705517<br>
+            </br> +91 9952394338
           </a>
           <p className="text-sm text-gray-500 mt-2">
             Our team will confirm your booking and answer any questions you may have.

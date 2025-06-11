@@ -14,18 +14,12 @@ const Header: React.FC = () => {
           </div>
           
           <nav className="hidden md:flex items-center space-x-6">
-            <a href="#" className="text-gray-700 hover:text-green-600 transition-colors font-medium">
-              Home
-            </a>
-            <a href="#" className="text-gray-700 hover:text-green-600 transition-colors font-medium">
-              Book Turf
-            </a>
-            <a href="#" className="text-gray-700 hover:text-green-600 transition-colors font-medium">
+            
+           
+            <a href="/gallery" className="text-gray-700 hover:text-green-600 transition-colors font-medium">
               Gallery
             </a>
-            <a href="#" className="text-gray-700 hover:text-green-600 transition-colors font-medium">
-              About Us
-            </a>
+           
           </nav>
           
           <div className="md:hidden">
