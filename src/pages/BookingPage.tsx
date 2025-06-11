@@ -90,7 +90,7 @@ const BookingPage: React.FC = () => {
     };
 
     try {
-      await axios.post('http://ec2-13-201-101-48.ap-south-1.compute.amazonaws.com/booking', payload);
+      await axios.post('https://liveupturf.duckdns.org/booking', payload);
       const key = `${selectedDate.toDateString()}-${parseInt(startHour)}`;
       addBooking(key);
       alert('Booking confirmed!');

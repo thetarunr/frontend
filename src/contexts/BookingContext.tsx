@@ -28,7 +28,7 @@ export const BookingProvider: React.FC<BookingProviderProps> = ({ children }) =>
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const res = await axios.get('http://ec2-13-201-101-48.ap-south-1.compute.amazonaws.com/booking');
+        const res = await axios.get('https://liveupturf.duckdns.org/booking');
         const fetched = res.data;
 
         const parsed = fetched.map((booking:any ) => {
