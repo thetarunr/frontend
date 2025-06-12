@@ -32,7 +32,7 @@ const Footer: React.FC = () => {
             <ul className="space-y-3">
               <li className="flex items-start">
                 <MapPin className="w-5 h-5 mr-2 mt-0.5 text-green-500" />
-                <span className="text-gray-300">Vinayagam salai, Lakshmipuram, poonthotam, Velapadi, Vellore, Tamil Nadu 632001</span>
+                <a href="https://www.google.com/maps/place/Level+Up+Turf/@12.9040966,79.1430479,17z/data=!3m1!4b1!4m6!3m5!1s0x3bad390022ec3733:0xc6855523fcd81d67!8m2!3d12.9040966!4d79.1430479!16s%2Fg%2F11x8v5d1h7?entry=ttu&g_ep=EgoyMDI1MDYwOS4xIKXMDSoASAFQAw%3D%3D" className="text-gray-300">Vinayagam salai, Lakshmipuram, poonthotam, Velapadi, Vellore, Tamil Nadu 632001</a>
               </li>
               <li className="flex items-center">
                 <Phone className="w-5 h-5 mr-2 text-green-500" />
