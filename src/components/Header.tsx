@@ -7,10 +7,10 @@ const Header: React.FC = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
           <img
-  src={logo}
-  alt="Level Up Turf Logo"
-  className="h-14 w-auto border-none"
-/>
+              src={logo}
+              alt="Level Up Turf Logo"
+              className="h-14 w-auto border-none"
+            />
 
             <div className="font-bold text-xl md:text-2xl text-white">
               Level <span className="text-green-600">Up</span>
@@ -18,12 +18,6 @@ const Header: React.FC = () => {
           </div>
           
           <nav className="hidden md:flex items-center space-x-6">
-            
-           
-            <a href="/gallery" className="text-white hover:text-green-600 transition-colors font-medium">
-              Gallery
-            </a>
-           
           </nav>
           
           <div className="md:hidden">
