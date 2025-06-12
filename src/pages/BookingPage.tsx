@@ -38,6 +38,8 @@ const BookingPage: React.FC = () => {
   const bookingDateISO = selectedDate.toLocaleDateString('en-CA'); // ex: "2025-06-25"
   const bookingDateDisplay = selectedDate.toDateString();
 
+  
+  
   const validateUser = async () => {
     try {
       await userSchema.validate(
@@ -83,8 +85,12 @@ const BookingPage: React.FC = () => {
       userEmail,
       bookingDate: bookingDateISO,
       startTime,
-      endTime,
+      endTime
     };
+
+    console.log({payload})
+    console.log({selectedDate},{bookingDateISO})
+
 
     try {
       const token = localStorage.getItem('service');
