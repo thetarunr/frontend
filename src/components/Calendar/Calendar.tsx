@@ -9,9 +9,8 @@ const Calendar: React.FC = () => {
   const { selectedDate, setSelectedDate } = useBookingContext();
   const [currentMonth, setCurrentMonth] = useState(selectedDate.getMonth());
   const [currentYear, setCurrentYear] = useState(selectedDate.getFullYear());
-
   const [view, setView] = useState<'day' | 'week'>('day');
-  console.log(selectedDate)
+
   
   
   const goToPreviousMonth = () => {
@@ -34,7 +33,6 @@ const Calendar: React.FC = () => {
   
   const handleDateClick = (day: number) => {
     const newDate = new Date(currentYear, currentMonth, day);
-    console.log({newDate})
     setSelectedDate(newDate);
   };
   
