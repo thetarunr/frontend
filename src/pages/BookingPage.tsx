@@ -6,6 +6,7 @@ import axios from 'axios';
 import * as yup from 'yup';
 import toast, { Toaster } from 'react-hot-toast';
 
+
 // Yup validation schema
 const userSchema = yup.object().shape({
   userName: yup.string().min(2, 'Name too short').required('Name is required'),
@@ -38,8 +39,9 @@ const BookingPage: React.FC = () => {
   const bookingDateISO = selectedDate.toLocaleDateString('en-CA'); // ex: "2025-06-25"
   const bookingDateDisplay = selectedDate.toDateString();
 
-  
-  
+
+
+
   const validateUser = async () => {
     try {
       await userSchema.validate(
@@ -88,8 +90,8 @@ const BookingPage: React.FC = () => {
       endTime
     };
 
-    console.log({payload})
-    console.log({selectedDate},{bookingDateISO})
+    console.log({ payload })
+    console.log({ selectedDate }, { bookingDateISO })
 
 
     try {
@@ -102,7 +104,18 @@ const BookingPage: React.FC = () => {
 
       const key = `${selectedDate.toDateString()}-${parseInt(startHour)}`;
       addBooking(key);
+
       toast.success('Booking confirmed!');
+      setUserName('');
+      setUserEmail('');
+      setUserContact('');
+      setFormName('');
+      setFormEmail('');
+      setFormContact('');
+      setShowPopup(false);
+      // You can also reset context here if needed
+
+
     } catch (err) {
       toast.error(`Booking failed.`);
     }
