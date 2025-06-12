@@ -91,7 +91,7 @@ const BookingPage: React.FC = () => {
     };
 
     try {
-      await axios.post('http://localhost:1337/booking', payload);
+      await axios.post('https://liveupturf.duckdns.org/booking', payload);
       const key = `${selectedDate.toDateString()}-${parseInt(startHour)}`;
       addBooking(key);
       toast.success('Booking confirmed!');
