@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from "../../dist/assets/logo.png";
+import logo from "../assets/logo.png";
 const Header: React.FC = () => {
   return (
     <header className="bg-black shadow-sm">
