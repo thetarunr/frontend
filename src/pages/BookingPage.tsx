@@ -4,6 +4,7 @@ import ContactInfo from '../components/ContactInfo';
 import { useBookingContext } from '../contexts/BookingContext';
 import axios from 'axios';
 import * as yup from 'yup';
+import toast,{Toaster} from 'react-hot-toast';
 
 // Yup validation schema
 const userSchema = yup.object().shape({
@@ -71,12 +72,12 @@ const BookingPage: React.FC = () => {
   // Submit booking with validated user data
   const handleSubmit = async () => {
     if (!selectedDate || !selectedTime) {
-      alert('Select both date and time.');
+      toast.error('Select both date and time.');
       return;
     }
 
     if (!userName || !userEmail || !userContact) {
-      alert('Please enter and save your details first.');
+      toast.error('Please enter and save your details first.');
       return;
     }
 
@@ -90,12 +91,12 @@ const BookingPage: React.FC = () => {
     };
 
     try {
-      await axios.post('https://liveupturf.duckdns.org/booking', payload);
+      await axios.post('http://localhost:1337/booking', payload);
       const key = `${selectedDate.toDateString()}-${parseInt(startHour)}`;
       addBooking(key);
-      alert('Booking confirmed!');
+      toast.success('Booking confirmed!');
     } catch (err) {
-      alert(`Booking failed. ${(err as Error).message}`);
+      toast.error(`Booking failed.`);
     }
   };
 
@@ -255,6 +256,7 @@ const BookingPage: React.FC = () => {
           </div>
         </div>
       )}
+      <Toaster/>
     </div>
   );
 };
