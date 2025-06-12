@@ -91,7 +91,14 @@ const BookingPage: React.FC = () => {
     };
 
     try {
-      await axios.post('https://liveupturf.duckdns.org/booking', payload);
+      const token = localStorage.getItem('service'); 
+
+      await axios.post('https://liveupturf.duckdns.org/booking', payload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
       const key = `${selectedDate.toDateString()}-${parseInt(startHour)}`;
       addBooking(key);
       toast.success('Booking confirmed!');
@@ -148,7 +155,7 @@ const BookingPage: React.FC = () => {
               </div>
               <div className="text-xs text-gray-500 mt-2">
                 <p>Day: 8:00 AM to 5:00 PM</p>
-                <p>Night: 6:00 PM to 11:00 AM</p>
+                <p>Night: 6:00 PM to 11:00 PM</p>
               </div>
             </div>
           </div>
