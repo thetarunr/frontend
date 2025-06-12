@@ -32,7 +32,7 @@ const Calendar: React.FC = () => {
   };
   
   const handleDateClick = (day: number) => {
-    const newDate = new Date(currentYear, currentMonth, day);
+    const newDate = new Date(`${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}T00:00:00`);
     setSelectedDate(newDate);
   };
   

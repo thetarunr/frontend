@@ -4,7 +4,7 @@ import ContactInfo from '../components/ContactInfo';
 import { useBookingContext } from '../contexts/BookingContext';
 import axios from 'axios';
 import * as yup from 'yup';
-import toast,{Toaster} from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 
 // Yup validation schema
 const userSchema = yup.object().shape({
@@ -14,18 +14,15 @@ const userSchema = yup.object().shape({
     .string()
     .matches(/^[6-9]\d{9}$/, 'Invalid phone number')
     .required('Contact number is required'),
-    
 });
 
 const BookingPage: React.FC = () => {
   const { selectedTime, selectedDate, addBooking } = useBookingContext();
 
-  // Form inputs inside popup
   const [formName, setFormName] = useState('');
   const [formEmail, setFormEmail] = useState('');
   const [formContact, setFormContact] = useState('');
 
-  // Final user data shown on Booking Summary
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userContact, setUserContact] = useState('');
@@ -33,13 +30,14 @@ const BookingPage: React.FC = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
-  const bookingDateISO = selectedDate.toISOString();
-  const bookingDateDisplay = selectedDate.toDateString();
   const [startHour] = selectedTime ? selectedTime.split(':') : [''];
   const startTime = `${startHour}:00`;
   const endTime = `${parseInt(startHour) + 1}:00`;
 
-  // Validate form inputs
+  // ✅ Use local time string in ISO format: "YYYY-MM-DD"
+  const bookingDateISO = selectedDate.toLocaleDateString('en-CA'); // ex: "2025-06-25"
+  const bookingDateDisplay = selectedDate.toDateString();
+
   const validateUser = async () => {
     try {
       await userSchema.validate(
@@ -58,7 +56,6 @@ const BookingPage: React.FC = () => {
     }
   };
 
-  // Save form inputs to final user data only if valid
   const handleSave = async () => {
     const isValid = await validateUser();
     if (isValid) {
@@ -69,7 +66,6 @@ const BookingPage: React.FC = () => {
     }
   };
 
-  // Submit booking with validated user data
   const handleSubmit = async () => {
     if (!selectedDate || !selectedTime) {
       toast.error('Select both date and time.');
@@ -91,8 +87,7 @@ const BookingPage: React.FC = () => {
     };
 
     try {
-      const token = localStorage.getItem('service'); 
-
+      const token = localStorage.getItem('service');
       await axios.post('https://liveupturf.duckdns.org/booking', payload, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -107,7 +102,6 @@ const BookingPage: React.FC = () => {
     }
   };
 
-  // Open popup and initialize form fields with existing user data
   const openPopup = () => {
     setFormName(userName);
     setFormEmail(userEmail);
@@ -118,7 +112,6 @@ const BookingPage: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">Book Your Slot</h1>
         <p className="text-gray-600">Select your preferred date and time to book the turf for your game.</p>
@@ -131,11 +124,9 @@ const BookingPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Sidebar */}
         <div className="space-y-6">
           <ContactInfo />
 
-          {/* Pricing Info */}
           <div className="bg-white p-6 rounded-xl shadow-md">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">Pricing</h3>
             <div className="space-y-3">
@@ -160,7 +151,6 @@ const BookingPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Booking Summary */}
           {selectedTime && (
             <div className="bg-white p-6 rounded-xl shadow-md">
               <h3 className="text-lg font-semibold text-gray-800 mb-4">Booking Details</h3>
@@ -211,12 +201,10 @@ const BookingPage: React.FC = () => {
         </div>
       </div>
 
-      {/* User Detail Modal */}
       {showPopup && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg p-6 shadow-lg w-full max-w-md">
             <h2 className="text-xl font-bold mb-4">Enter Your Details</h2>
-
             <div className="space-y-4">
               <input
                 type="text"
@@ -245,7 +233,6 @@ const BookingPage: React.FC = () => {
               />
               {errors.userContact && <p className="text-red-500 text-sm">{errors.userContact}</p>}
             </div>
-
             <div className="mt-6 flex justify-end space-x-3">
               <button
                 onClick={() => setShowPopup(false)}
@@ -263,7 +250,7 @@ const BookingPage: React.FC = () => {
           </div>
         </div>
       )}
-      <Toaster/>
+      <Toaster />
     </div>
   );
 };
